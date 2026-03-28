@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>J Force Store</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:linear-gradient(135deg,#000000,#0f3d0f,#00ff88);
+color:white;
+text-align:center;
+}
+
+/* HEADER */
+header{
+padding:20px;
+font-size:28px;
+font-weight:bold;
+background:linear-gradient(90deg,#000,#00ff88);
+}
+
+/* PRODUCTOS */
+.producto{
+background:rgba(0,0,0,0.7);
+margin:15px;
+padding:15px;
+border-radius:12px;
+box-shadow:0 0 15px #00ff88;
+}
+
+/* BOTONES */
+button{
+background:linear-gradient(90deg,#00ff88,#00cc66);
+border:none;
+padding:10px 15px;
+color:black;
+font-weight:bold;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* CARRITO */
+#carrito{
+background:rgba(0,0,0,0.8);
+margin:20px;
+padding:20px;
+border-radius:12px;
+}
+
+/* MENSAJE FINAL */
+#mensaje{
+display:none;
+font-size:22px;
+color:#00ff88;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+🖤 J FORCE STORE 💚
+</header>
+
+<h2>🔥 Colección Disponible</h2>
+
+<div id="productos"></div>
+
+<h2>🧾 Tu Pedido</h2>
+<div id="carrito"></div>
+
+<button onclick="enviarPedido()">Finalizar Pedido</button>
+
+<p id="mensaje">
+✅ Listo, tu pedido fue hecho.  
+Pronto recibirás tu compra 💚
+</p>
+
+<script>
+
+let carrito=[];
+
+const productos=[
+
+{name:"SET 2 PIEZAS FALDA",ref:"2-216",precio:84900},
+{name:"SET 3 PIEZAS LARGO",ref:"3E-207",precio:99900},
+{name:"SET 3 PIEZAS LARGO",ref:"53-23",precio:94900},
+{name:"SET 3 PIEZAS LARGO",ref:"3-260",precio:94900},
+{name:"CONJUNTO 2 LARGO",ref:"2E-203",precio:89900},
+{name:"CONJUNTO 2 LARGO",ref:"2E-202",precio:89900},
+{name:"SET 3 PIEZAS LARGO",ref:"53-23",precio:94900},
+{name:"SET 3 PIEZAS LARGO",ref:"3E-210",precio:99900},
+{name:"ENTERIZO LARGO",ref:"57-78",precio:89900},
+{name:"SET 3 PIEZAS LARGO",ref:"22-06",precio:79900},
+{name:"SET 2 PIEZAS SHORT RUNNING",ref:"SR-2P-001",precio:84900},
+{name:"SET 3 PIEZAS LARGO",ref:"3-258",precio:94900},
+{name:"SET 3 PIEZAS LARGO",ref:"265-25",precio:94900},
+{name:"CAMISETA FILTRO UV",ref:"121-12",precio:44900},
+{name:"SET 2 PIEZAS CHAQUETA",ref:"CB-001",precio:99900}
+
+];
+
+const contenedor=document.getElementById("productos");
+
+productos.forEach(p=>{
+contenedor.innerHTML+=`
+<div class="producto">
+<h3>${p.name}</h3>
+<p>Referencia: ${p.ref}</p>
+<p>Precio Detal: $${p.precio}</p>
+<button onclick="agregar('${p.name}',${p.precio})">
+Agregar al pedido
+</button>
+</div>`;
+});
+
+function agregar(nombre,precio){
+carrito.push({nombre,precio});
+mostrarCarrito();
+}
+
+function mostrarCarrito(){
+let html="";
+let total=0;
+
+carrito.forEach(p=>{
+html+=`<p>${p.nombre} - $${p.precio}</p>`;
+total+=p.precio;
+});
+
+html+=`<h3>Total: $${total}</h3>`;
+document.getElementById("carrito").innerHTML=html;
+}
+
+function enviarPedido(){
+
+let texto="Hola J FORCE, quiero este pedido:%0A";
+
+carrito.forEach(p=>{
+texto+=p.nombre+"%0A";
+});
+
+window.open(
+"https://wa.me/573136699415?text="+texto
+);
+
+document.getElementById("mensaje").style.display="block";
+
+carrito=[];
+mostrarCarrito();
+}
+
+</script>
+
+</body>
+</html>
